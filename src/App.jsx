@@ -1,4 +1,4 @@
-import {  RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {  RouterProvider,  createHashRouter } from 'react-router-dom';
 import './App.css';
 import Signin from './Components/Signin'
 import Signup from './Components/Signup'
@@ -12,7 +12,7 @@ import { AuthContext } from './Context/AuthContext';
 function App() {
   
   
-  const router =createBrowserRouter([
+  const router =createHashRouter([
     {path:'/',element:<Signin/>},
     {path:'/signin',element:<Signin/>},
     {path:'/signup',element:<Signup/>},
