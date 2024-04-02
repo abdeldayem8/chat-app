@@ -1,4 +1,3 @@
-
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -12,8 +11,9 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-// import { auth } from "../Firebase";
+import { auth } from "../Firebase";
 import { useState } from "react";
+import toast,{ Toaster } from "react-hot-toast";
 
 
 const theme = createTheme();
@@ -28,16 +28,28 @@ export default function Signin() {
   //  handle click on sign in butoon 
    const handleSubmit = async (e)=>{
       e.preventDefault();
-      signInWithEmailAndPassword(email,password)
+      signInWithEmailAndPassword(auth,email,password)
       .then((userCredential)=>{
         const user = userCredential.user;
-        Navigate("/chat/1");
-      }).catch((error)=>{
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorMessage);
-      })
-   }
+        toast.success("Successfully Login", {
+            duration: 1000,
+          });
+          setTimeout(function () {
+            Navigate('/chat/1')
+          }, 1000)
+      }).catch((error) => {
+        if (error.code === 'auth/invalid-credential') {
+          toast.error("Invalid credentials", {
+            duration: 3000,
+          });
+        } else {
+          const errorMessage = error.message;
+          toast.error("Login Failed: " + errorMessage, {
+            duration: 3000,
+          });
+        }
+      });
+  }
   return <>
   <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -126,5 +138,6 @@ export default function Signin() {
                 </Box>
             </Container>
         </ThemeProvider>
+        <Toaster/>
   </>
 }

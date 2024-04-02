@@ -1,19 +1,28 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {  RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './App.css';
 import Signin from './Components/Signin'
 import Signup from './Components/Signup'
 import Chat from './Components/Chat'
+import Protected from './protected';
+import { AuthContext } from './Context/AuthContext';
+
+
+
 
 function App() {
+  
+  
+  const router =createBrowserRouter([
+    {path:'/',element:<Signin/>},
+    {path:'/signin',element:<Signin/>},
+    {path:'/signup',element:<Signup/>},
+    {path:'/chat/:id/*' , element:<Protected><Chat/></Protected>}
+
+  ])
   return <>
-    {/* routing for three pages and chat will be protected */}
-    <BrowserRouter>
-    <Routes>
-      <Route exact path='/' element={<Signin/>} />
-      <Route  path='/signup' element={<Signup/>} />
-      <Route  path='/chat/:id' element={<Chat/>} />
-    </Routes>
-    </BrowserRouter>
+  <AuthContext>
+   <RouterProvider  router={router} />
+   </AuthContext>
   </>
 }
 
