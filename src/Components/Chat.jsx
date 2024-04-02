@@ -19,9 +19,13 @@ import {
     query,
 } from "firebase/firestore";
 import { signOut } from "firebase/auth";
+
+    // render list of users
  
 function UsersComponent(props) {
+    // sets the receiver data and navigates to the chat page.
     const handleToggle = (username, userId) => {
+        // set receiver data when a user is selected
         props.setReceiverData({
             username: username,
             userId: userId,
@@ -291,7 +295,7 @@ const input = {
 };
  
 const messagesDiv = {
-    backgroundColor: "#EEE4B1",
+    backgroundColor: "#f5f5f5",
     padding: 5,
     display: "flex",
     flexDirection: "column",
