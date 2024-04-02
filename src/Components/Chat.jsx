@@ -142,7 +142,7 @@ export default function Chat() {
                         timestamp: new Date(),
                     }
                 );
- 
+
                 await addDoc(
                     collection(
                         db,

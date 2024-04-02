@@ -35,8 +35,10 @@ export default function Signup() {
     toast.success("Successfully Register",{
         duration:1000,
        });
-    // navigate to signin page after register
-    Navigate('/');
+       // navigate to signin page after register
+       setTimeout(function () {
+        Navigate('/')
+      }, 1000)
     }catch(error){
         if (error.code === 'auth/email-already-in-use') {
             toast.error("Email already in use", {
